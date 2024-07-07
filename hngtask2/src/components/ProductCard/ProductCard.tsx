@@ -1,9 +1,10 @@
+import useCart from '@/hooks/useCart';
 import React from 'react';
 import { FaAngleRight, FaHeart } from 'react-icons/fa';
 import { IoMdCart } from 'react-icons/io';
 
 type ProductCardProps = {
-  id: number;
+  id: string;
   title: string;
   price: number;
   description: string;

@@ -1,3 +1,5 @@
+import { ProductType } from '@/types';
+
 export const productData: ProductType[] = [
   {
     id: 1,
