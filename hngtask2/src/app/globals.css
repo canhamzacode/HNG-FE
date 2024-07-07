@@ -14,3 +14,7 @@ body {
 .container {
   @apply max-w-[1440px] mx-auto;
 }
+
+.custom_shadow {
+  box-shadow: 8px 4px 27.7px 0px #3f4aab24;
+}

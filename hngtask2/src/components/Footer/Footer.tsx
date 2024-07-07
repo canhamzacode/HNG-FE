@@ -15,9 +15,10 @@ const footerData = [
 
 const Footer = () => {
   return (
-    <div className="w-full mt-8 py-[130px] bg-black text-white">
-      <div className="tablet:px-20 px-10 container grid tablet:grid-cols-[350px,1fr,300px] gap-8">
-        <div className="w-full flex items-center">
+    <div className="w-full mt-8 md:py-[130px] py-[60px] bg-primary text-white">
+      {/* <div className="tablet:px-20 px-10 container grid tablet:grid-cols-[200px,1fr,300px] gap-8"> */}
+      <div className="tablet:px-20 sm:px-10 px-5 container flex md:flex-row flex-col md:items-center items-start justify-between gap-8">
+        <div className="flex items-center">
           <p className={`${urbanist.className} font-black text-2xl`}>
             Dynamic <span className="font-medium">fashion</span>
           </p>

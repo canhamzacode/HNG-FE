@@ -8,12 +8,17 @@ import { productData } from '@/constants/data';
 
 const TopPick = () => {
   return (
-    <div className="tablet:mt-[120px] mt-[60px] container tablet:pl-20 p-10">
+    <div className="tablet:mt-[120px] mt-[60px] container tablet:pl-20 md:p-10 p-5">
       <h3 className="text-3xl font-semibold">Top picks for you</h3>
       <SwipperWrapper>
         {productData.map((data) => (
           <SwiperSlide key={data.id}>
-            <ProductCard title={data.title} price={data.price} description={data.description} />
+            <ProductCard
+              id={data.id}
+              title={data.title}
+              price={data.price}
+              description={data.description}
+            />
           </SwiperSlide>
         ))}
       </SwipperWrapper>

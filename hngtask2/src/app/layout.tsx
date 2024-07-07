@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
 import './globals.css';
 import { Footer, Navbar } from '@/components';
+import { IoChatbubbleEllipses } from 'react-icons/io5';
 
 const popins = Poppins({ subsets: ['latin'], weight: '400' });
 
@@ -20,6 +21,9 @@ export default function RootLayout({
       <body className={popins.className}>
         <Navbar />
         {children}
+        <button className="custom_shadow fixed right-[20px] bottom-10 z-50 w-20 h-20 rounded-[50%] bg-primary text-white flex items-center justify-center text-4xl">
+          <IoChatbubbleEllipses />
+        </button>
         <Footer />
       </body>
     </html>

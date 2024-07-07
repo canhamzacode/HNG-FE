@@ -6,7 +6,7 @@ import { FaAngleDown } from 'react-icons/fa';
 
 const AllProducts = () => {
   return (
-    <div className="tablet:mt-[120px] mt-[60px] container tablet:pl-20 p-10">
+    <div className="tablet:mt-[120px] mt-[60px] container tablet:pl-20 md:p-10 p-5">
       <div className="flex items-center justify-between">
         <h3 className="text-3xl font-semibold">All Products</h3>
         <button className="flex items-center justify-center gap-3 w-[120px] h-[48px] rounded-xl border">
@@ -18,6 +18,7 @@ const AllProducts = () => {
         {productData.map((data) => (
           <ProductCard
             key={data.id}
+            id={data.id}
             title={data.title}
             price={data.price}
             description={data.description}
