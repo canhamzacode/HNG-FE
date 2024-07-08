@@ -1,6 +1,7 @@
 'use client';
 
 import useCart from '@/hooks/useCart';
+import Image from 'next/image';
 import React from 'react';
 import { FaAngleRight, FaHeart, FaPlus } from 'react-icons/fa';
 import { IoMdCart } from 'react-icons/io';
@@ -11,9 +12,10 @@ type ProductCardProps = {
   title: string;
   price: number;
   description: string;
+  image: string;
 };
 
-const ProductCard = ({ id, title, price, description }: ProductCardProps) => {
+const ProductCard = ({ id, title, price, description, image }: ProductCardProps) => {
   const {
     addItemToCart,
     increaseItemQuantity,
@@ -25,12 +27,13 @@ const ProductCard = ({ id, title, price, description }: ProductCardProps) => {
   const quantity = getItemQuantity(id);
 
   const handleAddToCart = () => {
-    addItemToCart({ id, title, price, description, quantity: 1 });
+    addItemToCart({ id, title, price, description, quantity: 1, image: image });
   };
 
   return (
     <div className="w-full rounded-b-[8px] border">
-      <div className="relative h-[276px] rounded-[4px] bg-[#828282]">
+      <div className="relative h-[276px] rounded-[4px]">
+        <Image src={image} className="w-full h-full" alt={title} width={400} height={276} />
         <button className="absolute w-[48px] h-[48px] bg-primary favorite-shadow rounded-[50%] right-[19px] top-[20px] flex items-center justify-center text-white">
           <FaHeart size={25} />
         </button>
@@ -38,7 +41,7 @@ const ProductCard = ({ id, title, price, description }: ProductCardProps) => {
       <div className="px-[18px] py-5 grid gap-6">
         <div>
           <h4 className="md:text-3xl text-2xl font-semibold">{title}</h4>
-          <h5 className="md:text-2xl text-xl font-semibold mt-1">{price}</h5>
+          <h5 className="md:text-2xl text-xl font-semibold mt-1">${price}</h5>
           <div className="flex items-center gap-4  mt-3">
             <p className="font-medium text-base">
               {description.length > 100 ? `${description.slice(0, 100)}...` : description}

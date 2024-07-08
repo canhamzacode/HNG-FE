@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useState, ReactNode, useEffect, useContext } from 'react';
+import React, { createContext, useState, ReactNode, useEffect } from 'react';
 
 type CartItem = {
   id: number;
@@ -8,6 +8,7 @@ type CartItem = {
   price: number;
   description: string;
   quantity: number;
+  image: string;
 };
 
 type CartContextType = {

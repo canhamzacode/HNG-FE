@@ -18,6 +18,7 @@ const TopPick = () => {
               title={data.title}
               price={data.price}
               description={data.description}
+              image={data.image}
             />
           </SwiperSlide>
         ))}

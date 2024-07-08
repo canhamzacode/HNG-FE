@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
+import useCart from '@/hooks/useCart';
+import React, { useEffect, useState } from 'react';
 import { FaCcVisa } from 'react-icons/fa';
 import { RiMastercardFill, RiRemixRunFill } from 'react-icons/ri';
 
@@ -11,6 +12,16 @@ const chekoutOptions: React.JSX.Element[] = [
 ];
 
 const Checkout = () => {
+  const { totalPrice } = useCart();
+  const [tax, setTax] = useState(0);
+  const [allCharges, setAllCharges] = useState(0);
+
+  useEffect(() => {
+    const calculatedTax = (10 / 100) * totalPrice;
+    setTax(calculatedTax);
+    setAllCharges(totalPrice + calculatedTax);
+  }, [totalPrice]);
+
   const [activeIndex, setActiveIndex] = useState(0);
 
   const updateActiveIndex = (index: number) => {
@@ -26,7 +37,7 @@ const Checkout = () => {
         <div className="grid gap-7">
           <div className="flex justify-between items-center">
             <p>Sub Total</p>
-            <p className="font-medium">$100,000</p>
+            <p className="font-medium">${totalPrice}</p>
           </div>
           <div className="flex justify-between items-center">
             <p>Delivery fee</p>
@@ -34,15 +45,15 @@ const Checkout = () => {
           </div>
           <div className="flex justify-between items-center">
             <p>Tax</p>
-            <p className="font-medium">$2.00</p>
+            <p className="font-medium">${tax}</p>
           </div>
         </div>
         <div className="flex justify-between items-center mt-[56px]">
           <p>Total</p>
-          <p className="font-medium">$102,000</p>
+          <p className="font-medium">${allCharges}</p>
         </div>
       </div>
-      <div className="flex items-center gap-4 mt-[129px]">
+      <div className="flex flex-wrap md:justify-start justify-center items-center gap-4 mt-[129px]">
         {chekoutOptions.map((data, index) => (
           <button
             onClick={() => updateActiveIndex(index)}
@@ -54,9 +65,9 @@ const Checkout = () => {
         ))}
       </div>
       <form action="" className="w-full grid gap-[42px] mt-[144px]">
-        <div className="grid grid-cols-[738px,1fr] gap-5">
+        <div className="grid tablet:grid-cols-[538px,1fr] grid-cols-1 gap-5">
           <div className="grid gap-6">
-            <label htmlFor="name" className="text-[24px]">
+            <label htmlFor="name" className="tablet:text-2xl text-xl">
               Card holder name
             </label>
             <input
@@ -67,7 +78,7 @@ const Checkout = () => {
             />
           </div>
           <div className="grid gap-6">
-            <label htmlFor="name" className="text-[24px]">
+            <label htmlFor="name" className="tablet:text-2xl text-xl">
               CVV
             </label>
             <input
@@ -78,7 +89,7 @@ const Checkout = () => {
             />
           </div>
           <div className="grid gap-6">
-            <label htmlFor="name" className="text-[24px]">
+            <label htmlFor="name" className="tablet:text-2xl text-xl">
               Card number
             </label>
             <input
@@ -89,7 +100,7 @@ const Checkout = () => {
             />
           </div>
           <div className="grid gap-6">
-            <label htmlFor="name" className="text-[24px]">
+            <label htmlFor="name" className="tablet:text-2xl text-xl">
               Expiry date
             </label>
             <input

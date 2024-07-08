@@ -22,6 +22,7 @@ const AllProducts = () => {
             title={data.title}
             price={data.price}
             description={data.description}
+            image={data.image}
           />
         ))}
       </div>
