@@ -1,16 +1,33 @@
+'use client';
+
 import useCart from '@/hooks/useCart';
 import React from 'react';
-import { FaAngleRight, FaHeart } from 'react-icons/fa';
+import { FaAngleRight, FaHeart, FaPlus } from 'react-icons/fa';
 import { IoMdCart } from 'react-icons/io';
+import { TiMinus } from 'react-icons/ti';
 
 type ProductCardProps = {
-  id: string;
+  id: number;
   title: string;
   price: number;
   description: string;
 };
 
 const ProductCard = ({ id, title, price, description }: ProductCardProps) => {
+  const {
+    addItemToCart,
+    increaseItemQuantity,
+    decreaseItemQuantity,
+    isItemInCart,
+    getItemQuantity
+  } = useCart();
+  const itemInCart = isItemInCart(id);
+  const quantity = getItemQuantity(id);
+
+  const handleAddToCart = () => {
+    addItemToCart({ id, title, price, description, quantity: 1 });
+  };
+
   return (
     <div className="w-full rounded-b-[8px] border">
       <div className="relative h-[276px] rounded-[4px] bg-[#828282]">
@@ -31,10 +48,31 @@ const ProductCard = ({ id, title, price, description }: ProductCardProps) => {
             </button>
           </div>
         </div>
-        <button className="h-[56px] bg-primary text-white flex items-center justify-center gap-4 rounded-lg">
-          <IoMdCart size={22} />
-          <p>Add to cart</p>
-        </button>
+        {itemInCart ? (
+          <div className="flex items-center gap-4">
+            <button
+              onClick={() => decreaseItemQuantity(id)}
+              className="w-[56px] h-[56px] rounded-[16px] text-white bg-primary flex items-center justify-center"
+            >
+              <TiMinus size={20} />
+            </button>
+            <p className="text-2xl">{quantity}</p>
+            <button
+              onClick={() => increaseItemQuantity(id)}
+              className="w-[56px] h-[56px] rounded-[16px] text-white bg-primary flex items-center justify-center"
+            >
+              <FaPlus size={20} />
+            </button>
+          </div>
+        ) : (
+          <button
+            onClick={handleAddToCart}
+            className="h-[56px] bg-primary text-white flex items-center justify-center gap-4 rounded-lg"
+          >
+            <IoMdCart size={22} />
+            <p>Add to cart</p>
+          </button>
+        )}
       </div>
     </div>
   );

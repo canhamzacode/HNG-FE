@@ -5,9 +5,10 @@ import { FaBars, FaUser } from 'react-icons/fa';
 import { Urbanist } from 'next/font/google';
 import { CiSearch } from 'react-icons/ci';
 import { IoMdCart } from 'react-icons/io';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import './navbar.css';
+import useCart from '@/hooks/useCart';
 
 const urbanist = Urbanist({ subsets: ['latin'] });
 
@@ -29,9 +30,15 @@ const menuItems: MenuItem[] = [
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
+  const { cartItems } = useCart();
+  const router = useRouter();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const toCart = () => {
+    router.push('/cart');
   };
 
   return (
@@ -59,10 +66,13 @@ const Navbar: React.FC = () => {
               <button className="w-[52px] h-[52px] bg-black rounded-[50%] text-white flex items-center justify-center">
                 <FaUser size={20} />
               </button>
-              <button className="w-[52px] h-[52px] bg-white rounded-[50%] border-2 border-black flex items-center justify-center relative">
+              <button
+                onClick={toCart}
+                className="w-[52px] h-[52px] bg-white rounded-[50%] border-2 border-black flex items-center justify-center relative"
+              >
                 <IoMdCart size={22} />
-                <span className="absolute right-[12px] top-3 text-xs w-3 h-3 rounded-[50%] bg-[#860D0D] text-white">
-                  4
+                <span className="absolute right-[10px] top-3 text-xs w-4 h-4 rounded-[50%] bg-[#860D0D] text-white">
+                  {cartItems.length}
                 </span>
               </button>
             </div>

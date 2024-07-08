@@ -17,7 +17,7 @@ const Cart = () => {
               key={index}
               title={item.title}
               price={item.price}
-              quantity={item.quantity}
+              quantity={item.quantity as number}
             />
           ))}
         </div>
