@@ -37,8 +37,8 @@ const Navbar: React.FC = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const toCart = () => {
-    router.push('/cart');
+  const navigate = (to: string) => {
+    router.push(to);
   };
 
   return (
@@ -49,9 +49,12 @@ const Navbar: React.FC = () => {
             <button onClick={toggleMenu}>
               <FaBars size={20} />
             </button>
-            <p className={`${urbanist.className} text-primary/90 font-black md:text-2xl text-xl`}>
+            <Link
+              href="/"
+              className={`${urbanist.className} text-primary/90 font-black md:text-2xl text-xl`}
+            >
               Dynamic fashion
-            </p>
+            </Link>
           </div>
           <div className="md:flex hidden items-center tablet:w-[340px] w-auto p-4 rounded-md gap-3 border">
             <CiSearch size={20} />
@@ -63,11 +66,14 @@ const Navbar: React.FC = () => {
           </div>
           <div className="flex items-center justify-between tablet:gap-11 gap-6">
             <div className="flex items-center tablet:gap-8 gap-4">
-              <button className="w-[52px] h-[52px] bg-black rounded-[50%] text-white flex items-center justify-center">
+              <button
+                onClick={() => navigate('/')}
+                className="w-[52px] h-[52px] bg-black rounded-[50%] text-white flex items-center justify-center"
+              >
                 <FaUser size={20} />
               </button>
               <button
-                onClick={toCart}
+                onClick={() => navigate('/cart')}
                 className="w-[52px] h-[52px] bg-white rounded-[50%] border-2 border-black flex items-center justify-center relative"
               >
                 <IoMdCart size={22} />
