@@ -1,24 +1,38 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { ProductCard } from '../ProductCard';
 import { IoFilter } from 'react-icons/io5';
-import { FaAngleDown } from 'react-icons/fa';
 import getAllProducts from '@/utils/getAllProducts';
 import { ProductType } from '@/types';
 import Link from 'next/link';
+import { ProductCard } from '@/components';
 
 const AllProducts = () => {
   const [products, setProducts] = useState<ProductType[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const { data } = await getAllProducts();
+      const { data, totalPages } = await getAllProducts(currentPage);
       setProducts(data);
+      setTotalPages(totalPages);
     };
 
     fetchProducts();
-  }, []);
+  }, [currentPage]);
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const handlePreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
 
   return (
     <div className="tablet:mt-[120px] mt-[60px] container tablet:pl-20 md:p-10 p-5">
@@ -42,10 +56,15 @@ const AllProducts = () => {
         ))}
       </div>
       <div className="flex items-center justify-center gap-4 w-full h-[72px] rounded-xl border mt-[32px]">
-        <Link href="/products" className="flex items-center justify-center gap-4 ">
-          <p>See more</p>
-          <FaAngleDown />
-        </Link>
+        <button onClick={handlePreviousPage} disabled={currentPage === 1}>
+          Previous
+        </button>
+        <p>
+          Page {currentPage} of {totalPages}
+        </p>
+        <button onClick={handleNextPage} disabled={currentPage === totalPages}>
+          Next
+        </button>
       </div>
     </div>
   );

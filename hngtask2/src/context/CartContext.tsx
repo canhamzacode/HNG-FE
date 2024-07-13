@@ -40,11 +40,27 @@ type CartProviderProps = {
 export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+    if (typeof window !== 'undefined') {
+      const savedCart = localStorage.getItem('cart');
+      setCartItems(savedCart ? JSON.parse(savedCart) : []);
+    }
+  }, []);
 
   const calculateTotalPrice = () => {
     const total = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
     setTotalPrice(total);
   };
+
+  useEffect(() => {
+    if (isMounted) {
+      localStorage.setItem('cart', JSON.stringify(cartItems));
+      calculateTotalPrice();
+    }
+  }, [cartItems, isMounted]);
 
   const addItemToCart = (newItem: CartItem) => {
     const existingItem = cartItems.find((item) => item.id === newItem.id);
@@ -57,7 +73,6 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     } else {
       setCartItems([...cartItems, { ...newItem, quantity: 1 }]);
     }
-    calculateTotalPrice();
   };
 
   const increaseItemQuantity = (itemId: number) => {
@@ -66,7 +81,6 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
         item.id === itemId ? { ...item, quantity: item.quantity + 1 } : item
       )
     );
-    calculateTotalPrice();
   };
 
   const decreaseItemQuantity = (itemId: number) => {
@@ -75,12 +89,10 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
         item.id === itemId && item.quantity > 1 ? { ...item, quantity: item.quantity - 1 } : item
       )
     );
-    calculateTotalPrice();
   };
 
   const removeItemFromCart = (itemId: number) => {
     setCartItems(cartItems.filter((item) => item.id !== itemId));
-    calculateTotalPrice();
   };
 
   const isItemInCart = (itemId: number) => {
@@ -92,10 +104,6 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     return item ? item.quantity : 0;
   };
 
-  useEffect(() => {
-    calculateTotalPrice();
-  }, [cartItems]);
-
   const contextValue = {
     cartItems,
     totalPrice,
@@ -106,6 +114,10 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     isItemInCart,
     getItemQuantity
   };
+
+  if (!isMounted) {
+    return null; // Or a loading spinner or any fallback UI
+  }
 
   return <CartContext.Provider value={contextValue}>{children}</CartContext.Provider>;
 };

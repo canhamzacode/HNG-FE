@@ -24,7 +24,13 @@ const CartCard = ({ id, title, price, image }: CartCardType) => {
     <div className="w-full border border-[#0000001A] p-[20px] rounded-[8px] flex items-center justify-between bg-white/10">
       <div className="w-full max-w-[569px] flex flex-wrap items-center gap-[40px]">
         <div className="tablet:w-[200px] w-[150px] h-[150px] tablet:h-[200px] border">
-          <Image src={image} className="w-full h-full" alt={title} width={200} height={200} />
+          <Image
+            src={`${process.env.NEXT_PUBLIC_IMAGE_URL}${image}`}
+            className="w-full h-full"
+            alt={title}
+            width={200}
+            height={200}
+          />
         </div>
         <div>
           <h3 className="tablet:text-3xl text-xl">{title}</h3>
