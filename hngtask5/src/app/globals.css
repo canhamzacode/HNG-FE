@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  @apply text-darkGrey;
+}
+
+h1 {
+  @apply font-bold text-[32px];
+}
+
+.bold {
+  @apply font-bold;
+}
+
+.small {
+  @apply text-[12px];
+}
+
+.container {
+  @apply max-w-[1200px] mx-auto p-6;
+}
