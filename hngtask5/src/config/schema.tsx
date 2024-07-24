@@ -12,3 +12,7 @@ export const signupSchema = yup.object().shape({
   password: yup.string().min(8).required('Password is a required field'),
   confirmPassword: yup.string().oneOf([yup.ref('password')], 'Passwords must match')
 });
+
+export const LinkSchema = yup.object().shape({
+  link: yup.string().min(8).required('Link To be shared')
+});

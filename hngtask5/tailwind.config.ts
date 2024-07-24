@@ -18,6 +18,9 @@ const config: Config = {
         lightGrey: '#FAFAFA',
         white: '#FFFFFF',
         red: '#FF3939'
+      },
+      screens: {
+        tablet: '970px'
       }
     }
   },

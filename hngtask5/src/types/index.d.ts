@@ -9,3 +9,9 @@ export interface InputProps {
   register: (name: string) => UseFormRegisterReturn;
   errors: FieldErrors<{ [x: string]: string }>;
 }
+
+export interface PlatformProps {
+  name: string;
+  icon: ReactElement;
+  previewColor: string;
+}

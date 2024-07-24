@@ -34,7 +34,7 @@ const Button = ({
   };
 
   const typeStyle = typeStyles[type][state] || typeStyles.primary[state];
-  const finalClassName = `${baseStyle} ${typeStyle} ${className}`;
+  const finalClassName = `${className} ${baseStyle} ${typeStyle}`;
 
   return (
     <button
